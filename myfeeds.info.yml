@@ -1,0 +1,8 @@
+name: My Feeds
+type: module
+description: Demo
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:node
+  - drupal:user

@@ -1,0 +1,29 @@
+<?php
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\myfeeds\Form\BookmarkForm;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function myfeeds_entity_extra_field_info() {
+  $extra = [];
+
+  $extra['node']['feed']['display']['bookmark'] = [
+    'label' => t('Bookmark form'),
+    'description' => t('Display a checkbox allowing user to bookmark feed.'),
+    'weight' => -1,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function myfeeds_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode) {
+  if ($display->getComponent('bookmark')) {
+    $build['bookmark'] = \Drupal::formBuilder()->getForm(BookmarkForm::class, $node->id());
+  }
+}
